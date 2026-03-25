@@ -1,67 +1,43 @@
-/**
- * 1.1. Вывод массива в консоль (подробный формат)
- * @param {Array} arrToPrint - Исходный массив для подробного вывода
- */
+# Лабораторная работа №2: Реализация базовых методов работы с массивами
+
+## 🎯 Цель работы
+Изучение принципов реализации базовых методов работы с массивами (`forEach`, `map`, `filter`, `find`, `some`, `every`, `reduce`) с использованием функций обратного вызова (колбэков). Закрепление навыков написания функций с корректным возвратом результатов и обработкой граничных случаев без использования встроенных методов итерации массивов.
+
+## ⚠️ Условия и ограничения
+- **Запрещено** использовать встроенные методы массивов: `Array.prototype.forEach`, `map`, `filter`, `find`, `some`, `every`, `reduce`.
+- **Разрешено** использовать: цикл `for`, свойство `length`, обращение к элементам по индексу, метод `push` для формирования новых массивов.
+
+---
+
+## 💻 Реализованные функции и примеры использования
+
+### 1. Вывод массива в консоль
+Две функции для подробного и краткого вывода элементов массива.
+
+```javascript
 function printArray(arrToPrint) {
   for (let i = 0; i < arrToPrint.length; i++) {
     console.log(`Element ${i}: value ${arrToPrint[i]}`);
   }
 }
+2. forEach(array, callback)
 
-console.log("--- 1.1 printArray ---");
-const fruitsArray = ['Яблоко', 'Банан', 'Вишня'];
-printArray(fruitsArray);
-// Ожидаемый вывод: 
-// Element 0: value Яблоко
-// Element 1: value Банан
-// Element 2: value Вишня
+Выполняет переданную функцию для каждого элемента массива. Ничего не возвращает (undefined).
 
-
-/**
- * 1.1. Вывод массива в консоль (краткий формат)
- * @param {Array} arrToPrintShort - Исходный массив для краткого вывода
- */
-function printArray1(arrToPrintShort) {
-  for (let i = 0; i < arrToPrintShort.length; i++) {
-    console.log(`${i}:  ${arrToPrintShort[i]}`);
-  }
-}
-
-console.log("\n--- 1.1 printArray1 ---");
-const techArray = ['HTML', 'CSS', 'JS'];
-printArray1(techArray);
-// Ожидаемый вывод: 
-// 0:  HTML
-// 1:  CSS
-// 2:  JS
-
-
-/**
- * 1.2. Выполняет переданный колбэк для каждого элемента массива
- * @param {Array} arrToIterate - Исходный массив для обхода
- * @param {Function} callback - Функция обратного вызова callback(element, index, array)
- * @returns {undefined}
- */
+JavaScript
 function forEach(arrToIterate, callback) {
   for (let i = 0; i < arrToIterate.length; i++) {
     callback(arrToIterate[i], i, arrToIterate);
   }
 }
 
-console.log("\n--- 1.2 forEach ---");
-const namesArray = ['Али', 'Берик', 'Серик'];
-forEach(namesArray, (name, index) => {
-  console.log(`Студент №${index + 1}: ${name}`);
-});
-// Ожидаемый вывод: Студент №1: Али, Студент №2: Берик, Студент №3: Серик
+// Пример:
+forEach(['Али', 'Берик'], (name, index) => console.log(`${index}: ${name}`));
+3. map(array, callback)
 
+Создает новый массив с результатами вызова указанной функции для каждого элемента.
 
-/**
- * 2. Создает новый массив с результатами вызова колбэка для каждого элемента
- * @param {Array} arrToMap - Исходный массив для преобразования
- * @param {Function} callback - Функция обратного вызова callback(element, index, array)
- * @returns {Array} Новый массив
- */
+JavaScript
 function map(arrToMap, callback) {
   const result = [];
   for (let i = 0; i < arrToMap.length; i++) {
@@ -69,20 +45,11 @@ function map(arrToMap, callback) {
   }
   return result;
 }
+4. filter(array, callback)
 
-console.log("\n--- 2. map ---");
-const numbersArray = [1, 2, 3, 4];
-const squaredNumbers = map(numbersArray, (num) => num * num);
-console.log("Квадраты чисел:", squaredNumbers); 
-// Ожидаемый вывод: Квадраты чисел: [1, 4, 9, 16]
+Создает новый массив со всеми элементами, прошедшими проверку, заданную в передаваемой функции.
 
-
-/**
- * 3. Создает новый массив со всеми элементами, прошедшими проверку в колбэке
- * @param {Array} arrToFilter - Исходный массив для фильтрации
- * @param {Function} callback - Функция проверки, должна возвращать boolean
- * @returns {Array} Отфильтрованный массив
- */
+JavaScript
 function filter(arrToFilter, callback) {
   const result = [];
   for (let i = 0; i < arrToFilter.length; i++) {
@@ -92,20 +59,11 @@ function filter(arrToFilter, callback) {
   }
   return result;
 }
+5. find(array, callback)
 
-console.log("\n--- 3. filter ---");
-const mixedNumbersArray = [10, 15, 20, 25, 30];
-const evenNumbersOnly = filter(mixedNumbersArray, (num) => num % 2 === 0);
-console.log("Только четные:", evenNumbersOnly); 
-// Ожидаемый вывод: Только четные: [10, 20, 30]
+Возвращает первый элемент в массиве, удовлетворяющий условию переданной проверяющей функции.
 
-
-/**
- * 4. Возвращает первый элемент массива, удовлетворяющий условию
- * @param {Array} arrToSearch - Исходный массив для поиска
- * @param {Function} callback - Функция проверки, должна возвращать boolean
- * @returns {*} Найденный элемент или undefined
- */
+JavaScript
 function find(arrToSearch, callback) {
   for (let i = 0; i < arrToSearch.length; i++) {
     if (callback(arrToSearch[i], i, arrToSearch)) {
@@ -114,73 +72,31 @@ function find(arrToSearch, callback) {
   }
   return undefined;
 }
+6. some(array, callback) и every(array, callback)
 
-console.log("\n--- 4. find ---");
-const usersArray = [
-  { id: 1, role: 'user' },
-  { id: 2, role: 'admin' },
-  { id: 3, role: 'user' }
-];
-const firstAdmin = find(usersArray, (user) => user.role === 'admin');
-console.log("Первый админ:", firstAdmin); 
-// Ожидаемый вывод: Первый админ: { id: 2, role: 'admin' }
+Проверяют, удовлетворяет ли хотя бы один (some) или все (every) элементы массива условию.
 
-
-/**
- * 5. Проверяет, удовлетворяет ли хотя бы один элемент условию
- * @param {Array} arrToCheckSome - Исходный массив
- * @param {Function} callback - Функция проверки, должна возвращать boolean
- * @returns {boolean} true, если найден хотя бы один подходящий, иначе false
- */
+JavaScript
 function some(arrToCheckSome, callback) {
   for (let i = 0; i < arrToCheckSome.length; i++) {
-    if (callback(arrToCheckSome[i], i, arrToCheckSome)) {
-      return true;
-    }
+    if (callback(arrToCheckSome[i], i, arrToCheckSome)) return true;
   }
   return false;
 }
 
-console.log("\n--- 5. some ---");
-const temperaturesArray = [-5, -2, 0, 3, -1];
-const hasPositiveTemp = some(temperaturesArray, (temp) => temp > 0);
-console.log("Есть ли плюсовая температура?", hasPositiveTemp); 
-// Ожидаемый вывод: Есть ли плюсовая температура? true
-
-
-/**
- * 6. Проверяет, удовлетворяют ли все элементы массива условию
- * @param {Array} arrToCheckEvery - Исходный массив
- * @param {Function} callback - Функция проверки, должна возвращать boolean
- * @returns {boolean} true, если все проходят проверку, иначе false
- */
 function every(arrToCheckEvery, callback) {
   for (let i = 0; i < arrToCheckEvery.length; i++) {
-    if (!callback(arrToCheckEvery[i], i, arrToCheckEvery)) {
-      return false;
-    }
+    if (!callback(arrToCheckEvery[i], i, arrToCheckEvery)) return false;
   }
   return true;
 }
+7. reduce(array, callback, initialValue)
 
-console.log("\n--- 6. every ---");
-const agesArray = [21, 25, 30, 18];
-const allAdults = every(agesArray, (age) => age >= 18);
-console.log("Все ли совершеннолетние?", allAdults); 
-// Ожидаемый вывод: Все ли совершеннолетние? true
+Применяет функцию к аккумулятору и каждому значению массива, сводя его к одному значению.
 
-
-/**
- * 7. Последовательно обрабатывает элементы, накапливая результат
- * @param {Array} arrToReduce - Исходный массив
- * @param {Function} callback - Функция callback(accumulator, element, index, array)
- * @param {*} [initialValue] - Начальное значение
- * @returns {*} Итоговое значение
- */
+JavaScript
 function reduce(arrToReduce, callback, initialValue) {
-  if (arrToReduce.length === 0 && initialValue === undefined) {
-    return undefined;
-  }
+  if (arrToReduce.length === 0 && initialValue === undefined) return undefined;
 
   let accumulator = initialValue !== undefined ? initialValue : arrToReduce[0];
   let startIndex = initialValue !== undefined ? 0 : 1;
@@ -188,12 +104,11 @@ function reduce(arrToReduce, callback, initialValue) {
   for (let i = startIndex; i < arrToReduce.length; i++) {
     accumulator = callback(accumulator, arrToReduce[i], i, arrToReduce);
   }
-
   return accumulator;
 }
+📝 Контрольные вопросы
+Преимущества колбэков: Разделение логики обхода и обработки, переиспользуемость, декларативность кода.
 
-console.log("\n--- 7. reduce ---");
-const pricesArray = [1000, 2500, 500];
-const totalPrice = reduce(pricesArray, (acc, price) => acc + price, 0);
-console.log("Итоговая сумма:", totalPrice); 
-// Ожидаемый вывод: Итоговая сумма: 4000
+Возможные проблемы: Потеря контекста this (решается стрелочными функциями) и мутация исходных данных (решается написанием чистых функций).
+
+Реализация без встроенных методов: Использование цикла for с досрочным выходом (return) для оптимизации методов find, some и every.
