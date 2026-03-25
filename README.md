@@ -11,30 +11,48 @@
 
 ## 💻 Реализованные функции (JS)
 ```javascript
-// 1. Вывод массива в консоль (подробный)
+/**
+ * Вывод массива в консоль (подробный формат)
+ * @param {Array<*>} arrToPrint - Массив для вывода
+ * @returns {void}
+ */
 function printArray(arrToPrint) {
   for (let i = 0; i < arrToPrint.length; i++) {
     console.log(`Element ${i}: value ${arrToPrint[i]}`);
   }
 }
 
-// 1.1 Вывод массива в консоль (краткий)
+/**
+ * Вывод массива в консоль (краткий формат)
+ * @param {Array<*>} arrToPrintShort - Массив для вывода
+ * @returns {void}
+ */
 function printArrayShort(arrToPrintShort) {
   for (let i = 0; i < arrToPrintShort.length; i++) {
     console.log(`${i}: ${arrToPrintShort[i]}`);
   }
 }
 
-// 2. forEach(array, callback)
-// Выполняет callback для каждого элемента массива, ничего не возвращает
+/**
+ * Выполняет callback для каждого элемента массива
+ * @template T
+ * @param {Array<T>} arrToIterate - Исходный массив
+ * @param {(element: T, index: number, array: Array<T>) => void} callback - Функция обратного вызова
+ * @returns {void}
+ */
 function forEach(arrToIterate, callback) {
   for (let i = 0; i < arrToIterate.length; i++) {
     callback(arrToIterate[i], i, arrToIterate);
   }
 }
 
-// 3. map(array, callback)
-// Создает новый массив с результатами вызова callback для каждого элемента
+/**
+ * Создает новый массив с результатами вызова callback
+ * @template T, R
+ * @param {Array<T>} arrToMap - Исходный массив
+ * @param {(element: T, index: number, array: Array<T>) => R} callback - Функция преобразования
+ * @returns {Array<R>} Новый массив
+ */
 function map(arrToMap, callback) {
   const result = [];
   for (let i = 0; i < arrToMap.length; i++) {
@@ -43,8 +61,13 @@ function map(arrToMap, callback) {
   return result;
 }
 
-// 4. filter(array, callback)
-// Возвращает новый массив с элементами, прошедшими проверку
+/**
+ * Возвращает новый массив с элементами, прошедшими проверку callback
+ * @template T
+ * @param {Array<T>} arrToFilter - Исходный массив
+ * @param {(element: T, index: number, array: Array<T>) => boolean} callback - Условие фильтрации
+ * @returns {Array<T>} Отфильтрованный массив
+ */
 function filter(arrToFilter, callback) {
   const result = [];
   for (let i = 0; i < arrToFilter.length; i++) {
@@ -55,8 +78,13 @@ function filter(arrToFilter, callback) {
   return result;
 }
 
-// 5. find(array, callback)
-// Возвращает первый элемент, удовлетворяющий условию, или undefined
+/**
+ * Возвращает первый элемент, удовлетворяющий условию callback
+ * @template T
+ * @param {Array<T>} arrToSearch - Исходный массив
+ * @param {(element: T, index: number, array: Array<T>) => boolean} callback - Условие поиска
+ * @returns {T|undefined} Найденный элемент или undefined
+ */
 function find(arrToSearch, callback) {
   for (let i = 0; i < arrToSearch.length; i++) {
     if (callback(arrToSearch[i], i, arrToSearch)) {
@@ -66,8 +94,13 @@ function find(arrToSearch, callback) {
   return undefined;
 }
 
-// 6. some(array, callback)
-// Проверяет, есть ли хотя бы один элемент, удовлетворяющий условию
+/**
+ * Проверяет, есть ли хотя бы один элемент, удовлетворяющий условию callback
+ * @template T
+ * @param {Array<T>} arrToCheckSome - Исходный массив
+ * @param {(element: T, index: number, array: Array<T>) => boolean} callback - Условие проверки
+ * @returns {boolean} true, если найден хотя бы один подходящий элемент
+ */
 function some(arrToCheckSome, callback) {
   for (let i = 0; i < arrToCheckSome.length; i++) {
     if (callback(arrToCheckSome[i], i, arrToCheckSome)) {
@@ -77,8 +110,13 @@ function some(arrToCheckSome, callback) {
   return false;
 }
 
-// 7. every(array, callback)
-// Проверяет, удовлетворяют ли все элементы условию
+/**
+ * Проверяет, удовлетворяют ли все элементы массива условию callback
+ * @template T
+ * @param {Array<T>} arrToCheckEvery - Исходный массив
+ * @param {(element: T, index: number, array: Array<T>) => boolean} callback - Условие проверки
+ * @returns {boolean} true, если все элементы прошли проверку
+ */
 function every(arrToCheckEvery, callback) {
   for (let i = 0; i < arrToCheckEvery.length; i++) {
     if (!callback(arrToCheckEvery[i], i, arrToCheckEvery)) {
@@ -88,8 +126,14 @@ function every(arrToCheckEvery, callback) {
   return true;
 }
 
-// 8. reduce(array, callback, initialValue)
-// Сводит массив к одному значению, используя аккумулятор
+/**
+ * Сводит массив к одному значению, используя аккумулятор
+ * @template T, R
+ * @param {Array<T>} arrToReduce - Исходный массив
+ * @param {(accumulator: R, element: T, index: number, array: Array<T>) => R} callback - Редьюсер
+ * @param {R} [initialValue] - Начальное значение аккумулятора
+ * @returns {R|undefined} Итоговое значение или undefined для пустого массива без initialValue
+ */
 function reduce(arrToReduce, callback, initialValue) {
   if (arrToReduce.length === 0 && initialValue === undefined) {
     return undefined;
